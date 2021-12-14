@@ -9,11 +9,14 @@ package avant.spring.user.dao;
  */
 public class DaoFactory {
 	public UserDao userDao() {
-		return new UserDao(new SimpleConnectionMaker());
+		return new UserDao(connectionMaker());
 	}
 
 	public DeptDao deptDao() {
-		return new DeptDao(new SimpleConnectionMaker());
+		return new DeptDao(connectionMaker());
 	}
 
+	public ConnectionMaker connectionMaker() {
+		return new SimpleConnectionMaker();
+	}
 }
