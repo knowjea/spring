@@ -2,6 +2,7 @@ package avant.spring.user;
 
 import java.sql.SQLException;
 
+import avant.spring.user.dao.ChildUserDao;
 import avant.spring.user.dao.UserDao;
 import avant.spring.user.domain.User;
 
@@ -15,7 +16,7 @@ import avant.spring.user.domain.User;
 public class UserTestMain {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
-		UserDao dao = new UserDao();
+		UserDao dao = new ChildUserDao();
 
 		User user = new User();
 		user.setId("test");
