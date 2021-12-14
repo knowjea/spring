@@ -7,6 +7,6 @@ package avant.spring.user.domain;
  * @history
  *          2021. 12. 14. initial creation
  */
-public class Dept {
+public class Account {
 	String id;
 }

@@ -12,8 +12,12 @@ public class DaoFactory {
 		return new UserDao(connectionMaker());
 	}
 
-	public DeptDao deptDao() {
-		return new DeptDao(connectionMaker());
+	public AccountDao accountDao() {
+		return new AccountDao(connectionMaker());
+	}
+
+	public MessageDao messageDao() {
+		return new MessageDao(connectionMaker());
 	}
 
 	public ConnectionMaker connectionMaker() {

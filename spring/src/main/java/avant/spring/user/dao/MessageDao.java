@@ -4,10 +4,10 @@ package avant.spring.user.dao;
  * Hello world!
  *
  */
-public class DeptDao {
+public class MessageDao {
 	ConnectionMaker connectionMaker;
 
-	public DeptDao(ConnectionMaker connectionMaker) {
+	public MessageDao(ConnectionMaker connectionMaker) {
 		this.connectionMaker = connectionMaker;
 	}
 
