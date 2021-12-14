@@ -12,7 +12,7 @@ import avant.spring.user.domain.User;
  *
  */
 public class UserDao {
-	SimpleConnectionMaker simpleConnectionMaker;
+	ConnectionMaker simpleConnectionMaker;
 
 	public UserDao() {
 		simpleConnectionMaker = new SimpleConnectionMaker();
