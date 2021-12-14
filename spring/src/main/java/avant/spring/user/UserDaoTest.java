@@ -13,7 +13,7 @@ import avant.spring.user.domain.User;
  * @history
  *          2021. 12. 3. initial creation
  */
-public class UserTestMain {
+public class UserDaoTest {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		UserDao dao = new UserDao(new SimpleConnectionMaker());
