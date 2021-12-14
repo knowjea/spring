@@ -11,11 +11,11 @@ import java.sql.SQLException;
  * @history
  *          2021. 12. 14. initial creation
  */
-public class ChildUserDao extends UserDao {
+public class SimpleConnectionMaker {
 
-	@Override
 	public Connection getConnection() throws ClassNotFoundException, SQLException {
 		Class.forName("com.mysql.jdbc.Driver");
 		return DriverManager.getConnection("jdbc:mysql://localhost/spring", "root", "little1");
 	}
+
 }
