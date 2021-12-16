@@ -2,6 +2,9 @@ package avant.spring.user;
 
 import java.sql.SQLException;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 import avant.spring.user.dao.DaoFactory;
 import avant.spring.user.dao.UserDao;
 import avant.spring.user.domain.User;
@@ -17,7 +20,8 @@ public class UserDaoTest {
 
 	public static void main(String[] args) throws ClassNotFoundException, SQLException {
 		// 관계 설정
-		UserDao userDao = new DaoFactory().userDao();
+		ApplicationContext context = new AnnotationConfigApplicationContext(DaoFactory.class);
+		UserDao userDao = context.getBean("userDao", UserDao.class);
 
 		User user = new User();
 		user.setId("test");
