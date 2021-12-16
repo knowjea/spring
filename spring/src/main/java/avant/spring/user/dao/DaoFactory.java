@@ -1,6 +1,7 @@
 package avant.spring.user.dao;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 /**
  *
@@ -9,6 +10,7 @@ import org.springframework.context.annotation.Bean;
  * @history
  *          2021. 12. 14. initial creation
  */
+@Configuration
 public class DaoFactory {
 
 	@Bean
