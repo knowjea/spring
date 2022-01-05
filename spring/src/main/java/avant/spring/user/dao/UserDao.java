@@ -5,6 +5,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import avant.spring.user.domain.User;
 
 /**
@@ -12,14 +14,14 @@ import avant.spring.user.domain.User;
  *
  */
 public class UserDao {
-	ConnectionMaker connectionMaker;
+	private DataSource dataSource;
 
-	public UserDao(ConnectionMaker connectionMaker) {
-		this.connectionMaker = connectionMaker;
+	public void setConnectionMaker(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 	public void add(User user) throws ClassNotFoundException, SQLException {
-		Connection c = connectionMaker.getConnection();
+		Connection c = dataSource.getConnection();
 
 		PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
 		ps.setString(1, user.getId());
@@ -33,7 +35,7 @@ public class UserDao {
 	}
 
 	public User get(String id) throws ClassNotFoundException, SQLException {
-		Connection c = connectionMaker.getConnection();
+		Connection c = dataSource.getConnection();
 
 		PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
 		ps.setString(1, id);
@@ -51,6 +53,19 @@ public class UserDao {
 		c.close();
 
 		return user;
+	}
+
+	public void deleteAll() throws SQLException, ClassNotFoundException {
+		// 1. 커넥션 얻기
+		Connection c = dataSource.getConnection();
+
+		// 2. 쿼리 수행
+		PreparedStatement ps = c.prepareStatement("delete from users");
+		ps.executeUpdate();
+
+		// 3. 리소스 회수
+		ps.close();
+		c.close();
 	}
 
 }
