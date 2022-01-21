@@ -35,37 +35,92 @@ public class UserDao {
 	}
 
 	public User get(String id) throws ClassNotFoundException, SQLException {
-		Connection c = dataSource.getConnection();
+		Connection c = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
 
-		PreparedStatement ps = c.prepareStatement("select * from users where id = ?");
-		ps.setString(1, id);
+		try {
+			c = dataSource.getConnection();
 
-		ResultSet rs = ps.executeQuery();
-		rs.next();
+			ps = c.prepareStatement("select * from users where id = ?");
+			ps.setString(1, id);
 
-		User user = new User();
-		user.setId(rs.getString("id"));
-		user.setName(rs.getString("name"));
-		user.setPassword(rs.getString("password"));
+			rs = ps.executeQuery();
+			rs.next();
 
-		rs.close();
-		ps.close();
-		c.close();
+			User user = new User();
+			user.setId(rs.getString("id"));
+			user.setName(rs.getString("name"));
+			user.setPassword(rs.getString("password"));
 
-		return user;
+			return user;
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			try {
+				if (rs != null) {
+					rs.close();
+				}
+			} catch (SQLException e) {
+
+			}
+
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) {
+
+			}
+
+			try {
+				if (c != null) {
+					c.close();
+				}
+			} catch (SQLException e) {
+
+			}
+		}
+
 	}
 
-	public void deleteAll() throws SQLException, ClassNotFoundException {
-		// 1. 커넥션 얻기
-		Connection c = dataSource.getConnection();
+	public void deleteAll() throws SQLException {
+		Connection c = null;
+		PreparedStatement ps = null;
 
-		// 2. 쿼리 수행
-		PreparedStatement ps = c.prepareStatement("delete from users");
-		ps.executeUpdate();
+		try {
+			// 1. 커넥션 얻기
+			c = dataSource.getConnection();
+			// 2. 쿼리 수행
+			ps = makeStatement(c);
+			ps.executeUpdate();
+		} catch (SQLException e) {
+			throw e;
+		} finally {
+			// 3. 리소스 회수
+			try {
+				if (ps != null) {
+					ps.close();
+				}
+			} catch (SQLException e) { // ps.close도 에러가 발생할 수 있다. 만약 catch로 잡아내지 않는다면 아래 코드가 수행되지 않아
+										// c.close()가 호출되지 않아 문제가 된다
 
-		// 3. 리소스 회수
-		ps.close();
-		c.close();
+			}
+
+			try {
+				if (c != null) {
+					c.close();
+				}
+			} catch (SQLException e) {
+
+			}
+		}
+	}
+
+	private PreparedStatement makeStatement(Connection c) throws SQLException {
+		PreparedStatement ps;
+		ps = c.prepareStatement("delete from users");
+		return ps;
 	}
 
 }
