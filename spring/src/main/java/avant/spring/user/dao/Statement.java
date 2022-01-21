@@ -49,27 +49,19 @@ public class Statement {
 	}
 
 	public void deleteAll() throws SQLException {
-		class DeleteAllStatement implements StatementStrategy {
+		jdbcContextWithStatementStrategy(new StatementStrategy() {
 
 			public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
 				PreparedStatement ps;
 				ps = c.prepareStatement("delete from users");
 				return ps;
 			}
-
-		}
-
-		StatementStrategy st = new DeleteAllStatement();
-		jdbcContextWithStatementStrategy(st);
+		});
 	}
 
-	/**
-	 * 내부 클래스는 메서드내에서 정보를 공유하기 때문에 user를 따로 인스턴스 변수로 둘 필요가 없음.
-	 * 내부 클래스에서 외부의 변수를 사용할 때는 외부 변수는 반드시 final로 선언해줘야 한다. user 따라미터는 메소드 내부에서 변경될 일이 없으므로 final 로
-	 * 선언해도 무방하다.
-	 */
 	public void add(final User user) throws SQLException {
-		class AddStatement implements StatementStrategy {
+		jdbcContextWithStatementStrategy(new StatementStrategy() {
+
 			public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
 				PreparedStatement ps = c.prepareStatement("insert into users(id, name, password) values(?,?,?)");
 
@@ -79,10 +71,6 @@ public class Statement {
 
 				return ps;
 			}
-
-		}
-
-		StatementStrategy st = new AddStatement();
-		jdbcContextWithStatementStrategy(st);
+		});
 	}
 }
