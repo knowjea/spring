@@ -11,12 +11,12 @@ import java.sql.SQLException;
  * @history
  *          2022. 1. 21. initial creation
  */
-public class UserDaoDeleteAll extends UserDao {
+public class DeleteAllStatement implements StatementStrategy {
 
-	@Override
-	protected PreparedStatement makeStatement(Connection c) throws SQLException {
+	public PreparedStatement makePreparedStatement(Connection c) throws SQLException {
 		PreparedStatement ps;
 		ps = c.prepareStatement("delete from users");
 		return ps;
 	}
+
 }
