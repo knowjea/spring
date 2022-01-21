@@ -6,6 +6,8 @@ import java.sql.SQLException;
 
 import javax.sql.DataSource;
 
+import avant.spring.user.domain.User;
+
 /**
  * Hello world!
  *
@@ -48,6 +50,11 @@ public class Statement {
 
 	public void deleteAll() throws SQLException {
 		StatementStrategy st = new DeleteAllStatement();
+		jdbcContextWithStatementStrategy(st);
+	}
+
+	public void add(User user) throws SQLException {
+		StatementStrategy st = new AddStatement(user);
 		jdbcContextWithStatementStrategy(st);
 	}
 }
