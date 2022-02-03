@@ -9,7 +9,7 @@ import javax.sql.DataSource;
 public class JdbcContext {
 	private DataSource dataSource;
 
-	public void setConnectionMaker(DataSource dataSource) {
+	public void setDataSource(DataSource dataSource) {
 		this.dataSource = dataSource;
 	}
 
