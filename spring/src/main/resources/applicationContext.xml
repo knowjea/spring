@@ -12,7 +12,12 @@
 		<property name="password" value="little1" />
 	</bean>
 
+  <bean id="jdbcContext" class="avant.spring.user.dao.JdbcContext">
+    <property name="dataSource" ref="dataSource" />
+  </bean>
+  
 	<bean id="userDao" class="avant.spring.user.dao.UserDao">
-		<property name="dataSource" ref="dataSource" />
+		<property name="jdbcContext" ref="jdbcContext" />
 	</bean>
+	
 </beans>

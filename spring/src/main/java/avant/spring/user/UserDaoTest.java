@@ -32,9 +32,6 @@ public class UserDaoTest {
 
 		System.out.println(user.getId() + " 등록 성공");
 
-		User user2 = userDao.get(user.getId());
-
-		System.out.println(user2.getId() + " 조회 성공");
 	}
 
 }
