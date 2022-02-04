@@ -4,13 +4,22 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import javax.sql.DataSource;
+
 import avant.spring.user.domain.User;
 
 public class UserDao {
+	private DataSource dataSource;
+
 	private JdbcContext jdbcContext;
 
-	public void setJdbcContext(JdbcContext jdbcContext) {
-		this.jdbcContext = jdbcContext;
+	// UserDao가 대신 DI 받는다.
+	public void setDataSource(DataSource dataSource) {
+		// DI 받은 DataSource를 jdbcContext에 설정해준다.
+		this.jdbcContext = new JdbcContext();
+		jdbcContext.setDataSource(dataSource);
+
+		this.dataSource = dataSource;
 	}
 
 	public void add(final User user) throws ClassNotFoundException, SQLException {
